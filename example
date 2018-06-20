@@ -1,0 +1,123 @@
+#include<iostream>
+using namespace std;
+const int MAX_LEN=25;
+class person
+{
+    char name[MAX_LEN];
+    char gender;
+    int age;
+    public: void readperson()
+    {
+        cout<<"name?";
+        cin>>name;
+        cout<<"gender?";
+        cin>>gender;
+        cout<<"age?";
+        cin>>age;
+    }
+    void displayperson()
+    {
+        cout<<name<<"name"<<endl;
+        cout<<gender<<"gender"<<endl;
+        cout<<age<<"age"<<endl;
+    }
+};
+class sports:public virtual person
+{
+    private:
+    char name[MAX_LEN];
+    int score;
+    public: void readdata()
+    {
+        cout<<"gameplayed?";
+        cin>>name;
+        cout<<"game score?";
+        cin>>score;
+    }
+    void displaydata()
+    {
+        cout<<"sports played"<<name<<endl;
+        cout<<"game score"<<score<<endl;
+    }
+    int sportsscore()
+    {
+        return score;
+    }
+};
+class student: public virtual person
+{
+    private:
+    int rollno;
+    char branch[MAX_LEN];
+    public: 
+    void readdata()
+    {
+        cout<<"rollno?";
+        cin>>rollno;
+        cout<<"branch?";
+        cin>>branch;
+    }
+    void displaydata()
+    {
+        cout<<"rollno"<<rollno<<endl;
+        cout<<"branch"<<branch<<endl;
+    }
+};
+class exam: public virtual student
+{
+    protected:
+    int sub1marks;
+    int sub2marks;
+    public:
+    void readdata()
+    {
+        cout<<"sub1marks?";
+        cin>>sub1marks;
+        cout<<"sub2marks?";
+        cin>>sub2marks;
+    }
+    void displaydata()
+    {
+        student::displaydata();
+        cout<<"sub1marks"<<sub1marks<<endl;
+        cout<<"sub2marks"<<sub2marks<<endl;
+        cout<<"totalmarks"<<totalmarks()<<endl;
+    }
+    int totalmarks()
+    {
+        return sub1marks+sub2marks;
+    }
+};    
+    class result: public exam, public sports
+    {
+        private:
+        int total;
+        public:void readdata()
+        {
+        readperson();
+        student::readdata();
+        exam::readdata();
+        sports::readdata();
+        }
+    void displaydata()
+    {
+        displayperson();
+    student::displaydata();
+    exam::displaydata();
+    sports::displaydata();
+    cout<<"overall performance,(exam+sports):"<<percentage()<<"%";
+    }
+     int percentage()
+     {
+         return (exam::totalmarks()+sportsscore())/3;
+     }
+};
+    int main()
+    {
+        result student;
+        cout<<"enter data for student...."<<endl;
+        student.readdata();
+    cout<<"student details.."<<endl;
+    student.displaydata();
+    }
+
